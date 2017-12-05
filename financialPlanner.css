@@ -1,0 +1,16 @@
+#first-debt{
+	float: left;
+	font-weight: bold;
+}
+.form-horizontal p{
+	font-size:12px;
+}
+.debt .row{
+	margin:4px;
+}
+.inputs{
+	padding-right: 0px;
+}
+.one-line{
+	padding-bottom: 10px;
+}

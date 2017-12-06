@@ -1,4 +1,4 @@
-User
+Users
   id : INT, primary key, not null, auto_increment
   username: CHAR(25) not null, unique
   password: CHAR(25) not null
@@ -13,7 +13,7 @@ Debt
   payments_pey_year: INT
   payment_type: BIT(1), bit of length one allowed (0 or 1)
 
-Reoccuring Payments
+Reoccuring_Payments
   id : INT, primary key
   user_id: INT, foreign key to user table
   name: CHAR(25)

@@ -1,0 +1,21 @@
+User
+  id : INT, primary key, not null, auto_increment
+  username: CHAR(25) not null, unique
+  password: CHAR(25) not null
+
+Debt
+  id: INT, primary key
+  user_id: INT, foreign key to user table
+  name: CHAR(25)
+  principal: INT
+  term: INT
+  annual_interest_rate: DECIMAL(5,2), interest rate up to 2 decimal values
+  payments_pey_year: INT
+  payment_type: BIT(1), bit of length one allowed (0 or 1)
+
+Reoccuring Payments
+  id : INT, primary key
+  user_id: INT, foreign key to user table
+  name: CHAR(25)
+  payment_amount: DECIMAL(7,2)
+  payments_pey_year: INT

@@ -4,9 +4,9 @@ User
   password: CHAR(25) not null
 
 Debt
- id: INT, primary key
- user_id: INT, foreign key to user table
- name: CHAR(25)
+  id: INT, primary key
+  user_id: INT, foreign key to user table
+  name: CHAR(25)
   principal: INT
   term: INT
   annual_interest_rate: DECIMAL(5,2), interest rate up to 2 decimal values

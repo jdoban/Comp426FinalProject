@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
   // /Users.php/<id> or /Users.php/<username>
 
   if ((count($path_components) >= 2) &&
-      ($path_components[1] != "" && is_int($path_components[1]))) {
+      ($path_components[1] != "") && is_numeric($path_components[1])) {
 
     // Interpret <id> as integer
     $Users_id = intval($path_components[1]);

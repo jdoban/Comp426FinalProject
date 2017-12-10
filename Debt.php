@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
       }
     }
 
-    //Validate payment_amount
+    //Validate principal
     $new_principal = false;
     if (isset($_REQUEST['principal'])) {
       $new_principal = intval($_REQUEST['principal']);
@@ -184,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
       exit();
     }
 
-    $user_id = trim($_REQUEST['user_id']);
+    $user_id = intval($_REQUEST['user_id']);
     if ($user_id == "") {
       header("HTTP/1.0 400 Bad Request");
       print("Bad user_id");
@@ -224,7 +224,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
 
     $term = intval($_REQUEST['term']);
-    if ($user_id == "") {
+    if ($term == "" || $term < 0) {
       header("HTTP/1.0 400 Bad Request");
       print("Bad term");
       exit();
@@ -236,8 +236,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
       exit();
     }
 
-    $annual_interest_rate = round(floatval($_REQUEST['annual_interest_rate']) , 2);
-    if ($annual_interest_rate == "") {
+    $annual_interest_rate = floatval($_REQUEST['annual_interest_rate']);
+    if ($annual_interest_rate == "" || $annual_interest_rate < 0) {
       header("HTTP/1.0 400 Bad Request");
       print("Bad annual_interest_rate");
       exit();
@@ -250,7 +250,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
 
     $payments_per_year = intval($_REQUEST['payments_per_year']);
-    if ($payments_per_year == "") {
+    if ($payments_per_year == "" || $payments_per_year < 0) {
       header("HTTP/1.0 400 Bad Request");
       print("Bad payments_per_year");
       exit();
@@ -263,9 +263,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
 
     $payment_type = intval($_REQUEST['payment_type']);
-    if ($payment_type == "") {
+    if ($payment_type == "" || $payment_type > 1 || $payment_type < 0) {
       header("HTTP/1.0 400 Bad Request");
-      print("Bad payment_type");
+      print("Bad/invalid payment_type");
       exit();
     }
 

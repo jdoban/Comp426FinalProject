@@ -52,6 +52,20 @@ class ReoccurringPayments
 		return null;
 	}
 
+	public static function getAllIDs() {
+    $mysqli = ReoccurringPayments::connect();
+
+    $result = $mysqli->query("select id from ReoccurringPayments");
+    $id_array = array();
+
+    if ($result) {
+      while ($next_row = $result->fetch_array()) {
+	       $id_array[] = intval($next_row['id']);
+      }
+    }
+    return $id_array;
+  }
+
   public static function findByName($name) {
 	  $mysqli = ReoccurringPayments::connect();
 
@@ -95,7 +109,7 @@ class ReoccurringPayments
 	}
 
   public function getPaymentsPerYear() {
-		return $this->payments_pey_year;
+		return $this->payments_per_year;
 	}
 
 	public function setName($name) {
@@ -140,7 +154,7 @@ class ReoccurringPayments
 		      'user_id' => $this->user_id,
 		      'name' => $this->name,
 		      'payments_amount' => $this->payment_amount,
-		      'payments_per_year' => $this->$payments_per_year);
+		      'payments_per_year' => $this->payments_per_year);
     return json_encode($json_obj);
   }
 

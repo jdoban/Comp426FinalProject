@@ -1,4 +1,4 @@
-#first-debt{
+#first-debt, #firstRecurring{
 	float: left;
 	font-weight: bold;
 }
@@ -16,4 +16,11 @@
 }
 .debt{
 margin-bottom: 20px;
+}
+#submitDebts, #submitPayments{
+float: right;
+margin-right: 30%;
+}
+#addAnotherLoan, #addAnotherPayment{
+	background-color: #e8ecf2;
 }

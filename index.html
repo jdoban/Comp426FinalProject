@@ -47,7 +47,7 @@
 			<div class="form-group row">
 			<label for="inputName" class="control-label col-xs-3 col-sm-3 col-md-3">Name</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<input type="text" class="form-control" id="inputName">
+			<input type="text" class="form-control" id="inputName" name="name">
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
 				<p> E.g. "Freshman Year Student Loan"</p>
@@ -57,7 +57,7 @@
 			<div class="form-group row">
 			<label for="inputPrincipal" class="control-label col-xs-3 col-sm-3 col-md-3">Principal</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<input type="text" class="form-control" id="inputPrincipal">
+			<input type="text" class="form-control" id="inputPrincipal" name="principal">
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
 				<p> Enter the unpaid principal of the loan</p>
@@ -67,7 +67,7 @@
 			<div class="form-group row">
 			<label for="inputTerm" class="control-label col-xs-3 col-sm-3 col-md-3">Term (years)</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<input type="text" class="form-control" id="inputTerm">
+			<input type="text" class="form-control" id="inputTerm" name="term">
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
 				<p> How many years are left on the term for this loan?</p>
@@ -77,7 +77,7 @@
 			<div class="form-group row">
 			<label for="inputAIR" class="control-label col-xs-3 col-sm-3 col-md-3">Annual Interest Rate</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<input type="text" class="form-control" id="inputAIR">
+			<input type="text" class="form-control" id="inputAIR" name="annual_interest_rate">
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
 				<p> Enter as a percentage (If the interest rate is 5%, enter 5)</p>
@@ -87,7 +87,7 @@
 			<div class="form-group row">
 			<label for="inputPmts" class="control-label col-xs-3 col-sm-3 col-md-3">Payments per Year</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<input type="text" class="form-control" id="inputPmts">
+			<input type="text" class="form-control" id="inputPmts" name="payments_per_year">
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
 				<p> For monthly payments, enter 12; annual payments, 1, etc.</p>
@@ -97,7 +97,7 @@
 			<div class="form-group row">
 			<label for="inputType" class="control-label col-xs-3 col-sm-3 col-md-3">Payment Type</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<select class="form-control" id="inputType">
+			<select class="form-control" id="inputType" name="payment_type">
 			<option>0</option>
 			<option>1</option>
 			</select>
@@ -121,7 +121,7 @@
 			<div class="form-group row one-line">
 			<label for="inputRecurringName" class="control-label col-xs-3 col-sm-3 col-md-3">Name</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<input type="text" class="form-control" id="inputRecurringName">
+			<input type="text" class="form-control" id="inputRecurringName" name="name">
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
 				<p> E.g. "Netflix"</p>
@@ -131,7 +131,7 @@
 			<div class="form-group row">
 			<label for="inputRecurringAmount" class="control-label col-xs-3 col-sm-3 col-md-3">Payment Amount</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<input type="text" class="form-control" id="inputRecurringAmount">
+			<input type="text" class="form-control" id="inputRecurringAmount" name="payment_amount">
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
 				<p> Enter the amount you pay each period.</p>
@@ -142,7 +142,7 @@
 			<div class="form-group row">
 			<label for="inputRecurringPmts" class="control-label col-xs-3 col-sm-3 col-md-3">Payments per Year</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<input type="text" class="form-control" id="inputRecurringPmts">
+			<input type="text" class="form-control" id="inputRecurringPmts" name="payments_per_year">
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
 				<p> For monthly payments, enter 12; annual payments, 1, etc.</p>
@@ -258,7 +258,7 @@
           <form>
           <input type="text" name="user" placeholder="Username">
           <input type="password" name="pass" placeholder="Password">
-          <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+          <input type="submit" name="login" class="login loginmodal-submit" value="Login" id="loginSubmit">
           </form>
 
           <div class="login-help">
@@ -272,12 +272,13 @@
         <div class="modal-dialog">
         <div class="loginmodal-container">
           <h1>Register</h1><br>
-          <form>
+          <form id="registerForm">
           <input type="text" name="user" placeholder="Username">
-          <input type="password" name="pass" placeholder="Password">
-           <input type="password" name="pass" placeholder="Password">
+          <input type="password" name="pass" placeholder="Password" id="pass">
+           <input type="password" name="pass1" placeholder="Password" id="pass1">
+           <p id="passwordCheck"> </p>
 
-          <input type="submit" name="login" class="login loginmodal-submit" value="Register">
+          <input type="submit" name="login" class="login loginmodal-submit" value="Register" id="registerSubmit">
           </form>
 
           <div class="login-help">

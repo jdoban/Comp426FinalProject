@@ -15,11 +15,11 @@ $("#submitDebts").on('click', function(e){
 submitDebts();
 });
 
-$("#registerButton").on('click', function(e){
+$("#registerSubmit").on('click', function(e){
 register();
 });
 
-$("#loginButton").on('click', function(e){
+$("#loginSubmit").on('click', function(e){
 login();
 });
 
@@ -67,6 +67,17 @@ var submitDebts=function(){
 }
 
 var register=function(){
+var pass=document.getElementById("pass").value;
+var pass1=document.getElementById("pass1").value;
+var checkPass = (pass==pass1)
+if(checkPass==false){
+	document.getElementById('passwordCheck').innerHTML="Your passwords do not match. Please try again.";
+	document.getElementById('registerForm').reset();
+}
+
+}
+
+var login=function(){
 
 }
 

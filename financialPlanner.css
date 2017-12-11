@@ -24,3 +24,9 @@ margin-right: 30%;
 #addAnotherLoan, #addAnotherPayment{
 	background-color: #e8ecf2;
 }
+#loginButton{
+	margin-left: 6%
+}
+.row{
+	margin-bottom: 50px;
+}

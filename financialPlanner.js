@@ -11,6 +11,17 @@ $("#addAnotherPayment").on('click', function(e){
 addAnotherPayment();
 });
 
+$("#submitDebts").on('click', function(e){
+submitDebts();
+});
+
+$("#registerButton").on('click', function(e){
+register();
+});
+
+$("#loginButton").on('click', function(e){
+login();
+});
 
 var addAnotherLoan =function(){
 	var original=document.getElementById('firstLoan' + k);
@@ -49,6 +60,14 @@ var addAnotherPayment =function(){
 
 	children1= clone1.children;
 	children1[0].reset();
+}
+
+var submitDebts=function(){
+
+}
+
+var register=function(){
+
 }
 
 });

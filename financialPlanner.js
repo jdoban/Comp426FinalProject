@@ -4,6 +4,7 @@ var k=0;
 var l=0;
 var f=0;
 var a=0;
+var base_url = "https://wwwp.cs.unc.edu/Courses/comp426-f17/users/mtyndall/finalproject";
 
 $("#addAnotherLoan").on('click', function(e){
 addAnotherLoan();
@@ -22,7 +23,7 @@ addAnotherIncome();
 });
 
 $("#registerSubmit").on('click', function(e){
-register();
+register(e);
 });
 
 $("#loginSubmit").on('click', function(e){
@@ -159,20 +160,33 @@ var addAnotherIncome =function(){
 }
 
 
-var register=function(){
+var register=function(e){
 var pass=document.getElementById("pass").value;
 var pass1=document.getElementById("pass1").value;
 var checkPass = (pass==pass1)
 if(checkPass==false){
+	e.preventDefault();
 	document.getElementById('passwordCheck').innerHTML="Your passwords do not match. Please try again.";
 	document.getElementById('registerForm').reset();
 }
 else{
+$.ajax(base_url + "/Users.php/",
+	       {type: "POST",
+		       dataType: "json",
+		       data: JSON.stringify({
+		       	username: $("#username").val(),
+		       	password: $("#pass").val()
+		       }),
+		       success: function(user_ids, status, jqXHR) {
+             	console.log(JSON.stringify(user_ids));
+             $('#user_id_list').append(JSON.stringify(user_ids) + '\n');
+		       },
+error: function(exception){alert('Exception:'+JSON.stringify(exception));}
+
+})
 
 }
-
 }
-
 var login=function(){
 
 }

@@ -99,18 +99,17 @@
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
 			<select class="form-control" id="inputType" name="payment_type">
 			<option>0</option>
-			<option>1</option>
+			<option selected>1</option>
 			</select>
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
-				<p> Enter 0 for end of period payments, and 1 for beginning.</p>
+				<p> Enter 0 for end of period payments, and 1 for beginning. (If you're not sure, leave 1 selected)</p>
 			</div>
 			</div>
 
 		</form>
 		</div>
 		<a class="btn btn-default" id= "addAnotherLoan" role="button"> Add Another Loan</a>
-		<button type="submit" class="btn btn-primary" id="submitDebts"> Submit </button>
 		</div>
 		<div class="col-md-6 col-sm-6 col-xs-12">
 			<h3> Reocurring Payments </h3>
@@ -153,54 +152,91 @@
 		</form>
 		</div>
 		<a class="btn btn-default" id="addAnotherPayment" role="button"> Add Another Payment</a>
-		<button type="submit" class="btn btn-primary" id="submitPayments"> Submit </button>
 
 		</div>
 		<div class="row">
 
 		</div>
 		<div class="col-md-6 col-sm-6 col-xs-12">
-				<h3> Income/Savings </h3>
-			<p> In this section, enter your savings and any sources of income you have.</p>
-			<p id="firstRecurring"> <b> Payment 1. </b></p>
-		<div id="firstPayment0" class="debt col-md-12 col-sm-12 col-xs 12">
+				<h3> Savings/Investments </h3>
+			<p> In this section, enter any savings or investments you have.</p>
+			<p id="firstSavings"> <b> Source 1. </b></p>
+		<div id="firstSavings0" class="debt col-md-12 col-sm-12 col-xs 12">
 			<form class="form-horizontal">
+
 			<div class="form-group row one-line">
-			<label for="inputRecurringName" class="control-label col-xs-3 col-sm-3 col-md-3">Name</label>
+			<label for="inputSavingsName" class="control-label col-xs-3 col-sm-3 col-md-3">Name</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<input type="text" class="form-control" id="inputRecurringName">
+			<input type="text" class="form-control" id="inputSavingsName">
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
-				<p> E.g. "Netflix"</p>
+				<p> E.g. "Bitcoin, Life Savings, etc."</p>
 			</div>
 			</div>
 
 			<div class="form-group row">
-			<label for="inputRecurringAmount" class="control-label col-xs-3 col-sm-3 col-md-3">Payment Amount</label>
+			<label for="inputSavingsAmount" class="control-label col-xs-3 col-sm-3 col-md-3">Amount</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<input type="text" class="form-control" id="inputRecurringAmount">
+			<input type="text" class="form-control" id="inputSavingsAmount">
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
-				<p> Enter the amount you pay each period.</p>
+				<p> Enter the principal amount.</p>
 			</div>
 			</div>
 
+			<div class=" form-group row">
+			<p id="savingsCheck"> <b> Does this asset have a consistent interest rate (like a savings account) or is it unknown (like a stock)? </b></p>
+			<div class="radio">
+			<label>
+			<input type="radio" name="consistent" value="consistent" class="consistentRadio">
+			Consistent
+			</label>
+			</div>
+			<div class="radio">
+			<label>
+			<input type="radio" name="consistent" class="inconsistentRadio" value="inconsistent">
+			Inconsistent
+			</label>
+			</div>
+			</div>
 
-			<div class="form-group row">
-			<label for="inputRecurringPmts" class="control-label col-xs-3 col-sm-3 col-md-3">Payments per Year</label>
+			<div class="form-group row consistent">
+			<label for="inputSavingsAIR"class="control-label col-xs-3 col-sm-3 col-md-3">Annual Interest Rate</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<input type="text" class="form-control" id="inputRecurringPmts">
+			<input type="text" class="form-control" id="inputSavingsAIR">
+			</div>
+			<div class="col-xs-5 col-sm-5 col-md-5">
+				<p> Enter the Annual Interest Rate for this asset.</p>
+			</div>
+			</div>
+
+			<div class="form-group row consistent">
+			<label for="inputSavingsPmts" class="control-label col-xs-3 col-sm-3 col-md-3">Payments per year</label>
+			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
+			<input type="text" class="form-control" id="inputSavingsPmts">
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
 				<p> For monthly payments, enter 12; annual payments, 1, etc.</p>
 			</div>
 			</div>
 
+			<div class="form-group row consistent">
+			<label for="inputSavingsType" class="control-label col-xs-3 col-sm-3 col-md-3">Payment Type</label>
+			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
+			<select class="form-control" id="inputSavingsType">
+			<option>0</option>
+			<option selected>1</option>
+			</select>
+			</div>
+			<div class="col-xs-5 col-sm-5 col-md-5">
+				<p> Enter 0 for end of period payments, and 1 for beginning (If you're not sure, leave 1 selected).</p>
+			</div>
+			</div>
+
 
 		</form>
 		</div>
-		<a class="btn btn-default" id="addAnotherPayment" role="button"> Add Another Payment</a>
-		<button type="submit" class="btn btn-primary" id="submitPayments"> Submit </button>
+		<a class="btn btn-default" id="addAnotherSavings" role="button"> Add Another Asset</a>
 		</div>
 
 		<div class="col-md-6 col-sm-6 col-xs-12">
@@ -244,9 +280,10 @@
 		</form>
 		</div>
 		<a class="btn btn-default" id="addAnotherPayment" role="button"> Add Another Payment</a>
-		<button type="submit" class="btn btn-primary" id="submitPayments"> Submit </button>
 		</div>
 		</div>
+
+		<button type="submit" class="btn btn-primary" id="submitDebts"> Submit </button>
 
 
 </div>

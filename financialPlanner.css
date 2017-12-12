@@ -1,4 +1,4 @@
-#first-debt, #firstRecurring{
+#first-debt, #firstRecurring, #firstSavings{
 	float: left;
 	font-weight: bold;
 }
@@ -17,11 +17,7 @@
 .debt{
 margin-bottom: 20px;
 }
-#submitDebts, #submitPayments{
-float: right;
-margin-right: 30%;
-}
-#addAnotherLoan, #addAnotherPayment{
+#addAnotherLoan, #addAnotherPayment, #addAnotherSavings{
 	background-color: #e8ecf2;
 }
 #loginButton{
@@ -29,4 +25,8 @@ margin-right: 30%;
 }
 .row{
 	margin-bottom: 50px;
+}
+#savingsCheck{
+	margin-top: 5%;
+	font-size: 15px;
 }

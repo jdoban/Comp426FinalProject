@@ -27,5 +27,5 @@ Savings
   name: VARCHAR(25)
   principal: INT
   annual_interest_rate: DECIMAL(5,2), interest rate up to 2 decimal values
-  payments_pey_year: INT
-  payment_type: Boolean
+  payments_per_year: INT
+  payment_type: Boolean (tinyint(1))

@@ -204,33 +204,33 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
 
     //Validate optional values
-    if (!isset($_REQUEST['annual_interest_rate'])) {
+    if (!isset($_REQUEST['annual_interest_rate']) || $_REQUEST['annual_interest_rate'] = '') {
       $annual_interest_rate = NULL;
     } else {
       $annual_interest_rate = floatval($_REQUEST['annual_interest_rate']);
-      if ($annual_interest_rate == "" || $annual_interest_rate < 0) {
+      if ($annual_interest_rate < 0) {
         header("HTTP/1.0 400 Bad Request");
         print("Bad annual_interest_rate");
         exit();
       }
     }
 
-    if (!isset($_REQUEST['payments_per_year'])) {
+    if (!isset($_REQUEST['payments_per_year']) || $_REQUEST['payments_per_year'] = '') {
       $payments_per_year = NULL;
     } else {
       $payments_per_year = intval($_REQUEST['payments_per_year']);
-      if ($payments_per_year == "" || $payments_per_year < 0) {
+      if ($payments_per_year < 0) {
         header("HTTP/1.0 400 Bad Request");
         print("Bad payments_per_year");
         exit();
       }
     }
 
-    if (!isset($_REQUEST['payment_type'])) {
+    if (!isset($_REQUEST['payment_type']) || $_REQUEST['payment_type'] = '') {
       $payment_type == NULL;
     } else {
       $payment_type = intval($_REQUEST['payment_type']);
-      if ($payment_type == "" || $payment_type > 1 || $payment_type < 0) {
+      if ($payment_type == "" && $payment_type > 1 && $payment_type < 0) {
         header("HTTP/1.0 400 Bad Request");
         print("Bad/invalid payment_type");
         exit();

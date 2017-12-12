@@ -16,7 +16,7 @@ $(document).ready(function(){
        e.preventDefault();
                    $.ajax({
                             url: base_url + '/Users.php/',
-                            type: "GET", //send it through get method
+                            type: "POST", //send it through get method
                             data: $('#id_test').serialize(),
                             success: function(response) {
                               console.log(response);

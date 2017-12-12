@@ -218,8 +218,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     //Password default is just the default hashing method given by php
     $password = password_hash($plain_password, PASSWORD_DEFAULT);
 
-    if (!isset($_REQUEST['income'])) {
-      $income = NULL;
+    if (!isset($_REQUEST['income']) || $_REQUEST['income']=='') {
+      $income = 0;
     } else {
       $income = intval($_REQUEST['income']);
       if ($income == "") {

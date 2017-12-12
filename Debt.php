@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 date_default_timezone_set('America/New_York');
 
-
+//READ Users.php file to see how all this works, the formatting is very similar. Each method is document there
 $path_components = explode('/', $_SERVER['PATH_INFO']);
 
 // Note that since extra path info starts with '/'
@@ -284,7 +284,19 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     print($new_Debt->getJSON());
     exit();
   }
-}
+} else if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
+  // Following matches instance URL in form
+  // /Debt.php/<id>
+
+  if ((count($path_components) >= 2) &&
+      ($path_components[1] != "")) {
+
+    // Interpret <id> as integer
+    $Debt_id = intval($path_components[1]);
+
+    // Look up object via ORM
+    $Debt = Debt::deleteEntry($Debt_id);
+}}
 
 // If here, none of the above applied and URL could
 // not be interpreted with respect to RESTful conventions.

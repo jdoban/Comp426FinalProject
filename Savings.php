@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 date_default_timezone_set('America/New_York');
 
-
+//READ Users.php file to see how all this works, the formatting is very similar. Each method is document there
 $path_components = explode('/', $_SERVER['PATH_INFO']);
 
 // Note that since extra path info starts with '/'

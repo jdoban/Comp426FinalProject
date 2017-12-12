@@ -3,6 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 date_default_timezone_set('America/New_York');
 
+//READ Users_orm.php file to see how all this works, the formatting is very similar. Each method is documented there
 class Debt
 {
 	private $id;
@@ -39,6 +40,7 @@ class Debt
 			$new_id = $mysqli->insert_id;
 			return new Debt($new_id, $user_id, $name, $principal, $term, $annual_interest_rate, $payments_per_year, $payment_type);
 		}
+
 		return null;
 	}
 
@@ -62,6 +64,20 @@ class Debt
 		}
 		return null;
 	}
+
+  public static function getAllIDs() {
+    $mysqli = Debt::connect();
+
+    $result = $mysqli->query("select id from Debt");
+    $id_array = array();
+
+    if ($result) {
+      while ($next_row = $result->fetch_array()) {
+	       $id_array[] = intval($next_row['id']);
+      }
+    }
+    return $id_array;
+  }
 
   public static function findByName($name) {
 	  $mysqli = Debt::connect();
@@ -115,23 +131,81 @@ class Debt
 		return $this->term;
 	}
 
-  public function GetAnnualInterestRate() {
+  public function getAnnualInterestRate() {
 		return $this->annual_interest_rate;
 	}
 
-  public function GetPaymentsPerYear() {
-		return $this->payments_pey_year;
+  public function getPaymentsPerYear() {
+		return $this->payments_per_year;
 	}
 
   public function getPaymentType() {
 		return $this->payment_type;
 	}
-  //Deletes the entry in database, hasn't been tested yet
-	private function deleteEntry() {
+
+  public function setName($name) {
+    $this->name = $name;
+    return $this->update();
+  }
+
+  public function setPrincipal($principal) {
+    $this->principal = $principal;
+    return $this->update();
+  }
+
+  public function setTerm($term) {
+    $this->term = $term;
+    return $this->update();
+  }
+
+  public function setAnnualInterestRate($annual_interest_rate) {
+    $this->annual_interest_rate = $annual_interest_rate;
+    return $this->update();
+  }
+
+  public function setPaymentsPerYear($payments_per_year) {
+    $this->payments_per_year = $payments_per_year;
+    return $this->update();
+  }
+
+  public function setPaymentType($payment_type) {
+    $this->payment_type = $payment_type;
+    return $this->update();
+  }
+
+	public function deleteEntry($id) {
 	  $mysqli = Debt::connect();
 
-		$result = $mysqli->query("delete from Debt where id = " . $this->id);
+		$result = $mysqli->query("delete from Debt where id = " . $id);
 		return $result;
 	}
+
+  //TODO Test this
+	private function update() {
+    $mysqli = Debt::connect();
+
+    $result = $mysqli->query("update Debt set " .
+			     "name=" .
+			     "'" . $mysqli->real_escape_string($this->name) . "', " .
+           "principal=" . $principal . ", " .
+           "term=" . $term . ", " .
+           "annual_interest_rate=" . $annual_interest_rate . ", " .
+					 "payments_per_year=" . $payments_per_year . ", " .
+					 "payment_type=" . $payment_type);
+    return $result;
+  }
+
+	public function getJSON() {
+
+    $json_obj = array('id' => $this->id,
+		      'user_id' => $this->user_id,
+		      'name' => $this->name,
+		      'principal' => $this->principal,
+          'term' => $this->term,
+          'annual_interest_rate' => $this->annual_interest_rate,
+          'payments_per_year' => $this->payments_per_year,
+		      'payment_type' => $this->payment_type);
+    return json_encode($json_obj);
+  }
 
 }

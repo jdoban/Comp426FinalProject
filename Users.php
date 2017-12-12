@@ -4,6 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 date_default_timezone_set('America/New_York');
 
+//path_components is everything that comes after Users.php/ in the url. Allows us to pass in param values through url
 $path_components = explode('/', $_SERVER['PATH_INFO']);
 
 // Note that since extra path info starts with '/'
@@ -16,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
   // /Users.php/<id> or /Users.php/<username>
   // Use if you want info and know the user_id
 
+  //Test if there is an int value following /Users.php/. This int is interpreted as an ID
   if ((count($path_components) >= 2) &&
       ($path_components[1] != "") && is_numeric($path_components[1])) {
 
@@ -25,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     // Look up object via ORM
     $Users = Users::findByID($Users_id);
 
+    //Tests if that id is in the database
     if ($Users == null) {
       // Users not found.
       header("HTTP/1.0 404 Not Found");
@@ -40,27 +43,33 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
       exit();
     }
 
-    // Normal lookup for username
+    // Normal lookup for username via id
     // Generate JSON encoding as response
     header("Content-type: application/json");
     print($Users->getJSON());
     exit();
 
+    //Failsafe if statement, needs correcting but code within it works
+    //Use this if you know the login and password OR just the login
   } else if ((count($path_components) >= 1)) {
 
-        //use for logins, else find id for username
-        //must pass in username and password as data in ajax call
         if(isset($_REQUEST['password'])){
+          //use for logins, else find by username down below
+          //must pass in username and password as data in ajax call
           $username = $_REQUEST['username'];
           $password = $_REQUEST['password'];
 
           $Users = Users::findByUsername($username);
+
+          //Tests for valid username
           if(!isset($Users)){
             header("HTTP/1.0 404 Not Found");
             print("User: " . $username . " not found.");
             exit();
           }
 
+          //Validates the password.
+          //Password_verify compares the password value entered in the $_REQUEST with the hashed pw in database
           if(password_verify($password , $Users->getPassword())){
             // Normal lookup.
             // Generate JSON encoding as response
@@ -68,6 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             print($Users->getJSON());
             exit();
           } else {
+            //Incorrect password. Only prints the two hashed pws for debugging purposes
             header("HTTP/1.0 400 Bad Request");
             print("Bad password" . password_hash($password, PASSWORD_DEFAULT) . "\n" . $Users->getPassword());
             exit();
@@ -81,13 +91,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             exit();
 
         }
+
         //Find a value by username but without knowing password, useful for finding user_id value
       } else {
         $username = $_REQUEST['username'];
         $Users = Users::findByUsername($username);
 
         if ($Users == null) {
-          // Users not found.
+          // User not found.
           header("HTTP/1.0 404 Not Found");
           print("Users id: " . $Users_id . " not found.");
           exit();
@@ -116,9 +127,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 } else if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-  // Either creating or updating
+  // Either creating or updating User items in the database
+  // SUBMITTED VALUES ARE VALIDATED HERE, don't need to worry about it in JS unless you're debugging
 
   // Following matches /Users.php/<id> form
+  // You must add the user id to the url if you want to update a database entry
   if ((count($path_components) >= 2) &&
       ($path_components[1] != "")) {
 
@@ -201,6 +214,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
       exit();
     }
 
+    //Takes the plaintext password provided by the user and hashes it for security
+    //Password default is just the default hashing method given by php
     $password = password_hash($plain_password, PASSWORD_DEFAULT);
 
     if (!isset($_REQUEST['income'])) {

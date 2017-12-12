@@ -3,6 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 date_default_timezone_set('America/New_York');
 
+//READ Users_orm.php file to see how all this works, the formatting is very similar. Each method is documented there
 class ReoccurringPayments
 {
 	private $id;
@@ -52,6 +53,20 @@ class ReoccurringPayments
 		return null;
 	}
 
+	public static function getAllIDs() {
+    $mysqli = ReoccurringPayments::connect();
+
+    $result = $mysqli->query("select id from ReoccurringPayments");
+    $id_array = array();
+
+    if ($result) {
+      while ($next_row = $result->fetch_array()) {
+	       $id_array[] = intval($next_row['id']);
+      }
+    }
+    return $id_array;
+  }
+
   public static function findByName($name) {
 	  $mysqli = ReoccurringPayments::connect();
 
@@ -94,16 +109,54 @@ class ReoccurringPayments
 		return $this->payment_amount;
 	}
 
-  public function GetPaymentsPerYear() {
-		return $this->payments_pey_year;
+  public function getPaymentsPerYear() {
+		return $this->payments_per_year;
 	}
 
-	//Should delete the entity in the database, has yet to be tested
-	private function deleteEntry() {
+	public function setName($name) {
+    $this->name = $name;
+    return $this->update();
+  }
+
+	public function setPaymentAmount($payment_amount) {
+    $this->payment_amount = $payment_amount;
+    return $this->update();
+  }
+
+	public function setPaymentsPerYear($payments_per_year) {
+    $this->payments_per_year = $payments_per_year;
+    return $this->update();
+  }
+
+
+	public function deleteEntry($id) {
 	  $mysqli = ReoccurringPayments::connect();
 
-		$result = $mysqli->query("delete from ReoccurringPayments where id = " . $this->id);
+		$result = $mysqli->query("delete from ReoccurringPayments where id = " . $id);
 		return $result;
 	}
+
+	//TODO Test this
+	private function update() {
+    $mysqli = ReoccurringPayments::connect();
+
+    $result = $mysqli->query("update ReoccurringPayments set " .
+			     "name=" .
+			     "'" . $mysqli->real_escape_string($this->name) . "', " .
+					 "payment_amount=" . $payment_amount . ", " .
+					 "payments_per_year=" . $payments_per_year);
+    return $result;
+  }
+
+	//TODO: recode this
+	public function getJSON() {
+
+    $json_obj = array('id' => $this->id,
+		      'user_id' => $this->user_id,
+		      'name' => $this->name,
+		      'payments_amount' => $this->payment_amount,
+		      'payments_per_year' => $this->payments_per_year);
+    return json_encode($json_obj);
+  }
 
 }

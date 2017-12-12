@@ -3,6 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 date_default_timezone_set('America/New_York');
 
+//READ Users_orm.php file to see how all this works, the formatting is very similar. Each method is documented there
 class Savings
 {
 	private $id;

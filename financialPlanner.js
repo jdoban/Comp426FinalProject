@@ -24,14 +24,14 @@ $("#loginSubmit").on('click', function(e){
 login();
 });
 
-$('input:radio[name="consistent"]').change(
+$('input:radio[name="consistent0"]').change(
 	function(){
 		if($(this).is(':checked') && $(this).val()=='inconsistent'){
 			hideConsistent();
 		}
 	});
 
-$('input:radio[name="consistent"]').change(
+$('input:radio[name="consistent0"]').change(
 	function(){
 		if($(this).is(':checked') && $(this).val()=='consistent'){
 			showConsistent();
@@ -48,8 +48,14 @@ var addAnotherLoan =function(){
 	loans.innerHTML="Loan "+ j+".";
 	original.parentNode.appendChild(loans);
 	original.parentNode.appendChild(clone);
-		var cloneForm=document.getElementById('firstLoan' + k).getElementById('debtForm');
-	cloneForm.id="debtForm"+ k;
+	$("#firstLoan"+k).find("#debtForm"+ (k-1)).attr("id", "debtForm"+k);
+	$("#debtForm"+k).find("#inputPrincipal"+(k-1)).attr("id", "inputPrincipal"+k);
+	$("#debtForm"+k).find("#inputTerm"+(k-1)).attr("id", "inputTerm"+k);
+	$("#debtForm"+k).find("#inputName"+(k-1)).attr("id", "inputName"+k);
+	$("#debtForm"+k).find("#inputAIR"+(k-1)).attr("id", "inputAIR"+k);
+	$("#debtForm"+k).find("#inputPmts"+(k-1)).attr("id", "inputPmts"+k);
+	$("#debtForm"+k).find("#inputType"+(k-1)).attr("id", "inputType"+k);
+
 	var addButton = document.getElementById('addAnotherLoan');
 	clone.parentNode.appendChild(addButton);
 
@@ -68,6 +74,12 @@ var addAnotherPayment =function(){
 	loans1.innerHTML="Payment "+ m+".";
 	original1.parentNode.appendChild(loans1);
 	original1.parentNode.appendChild(clone1);
+	$("#firstPayment"+l).find("#paymentForm"+ (l-1)).attr("id", "paymentForm"+l);
+	$("#paymentForm"+l).find("#inputRecurringName"+(l-1)).attr("id", "inputRecurringName"+l);
+	$("#paymentForm"+l).find("#inputRecurringAmount"+(l-1)).attr("id", "inputRecurringAmount"+l);
+	$("#paymentForm"+l).find("#inputRecurringPmts"+(l-1)).attr("id", "inputRecurringPmts"+l);
+
+
 	var addButton1 = document.getElementById('addAnotherPayment');
 	clone1.parentNode.appendChild(addButton1);
 
@@ -85,11 +97,37 @@ var addAnotherSavings =function(){
 	loans1.innerHTML="Source "+ e+".";
 	original1.parentNode.appendChild(loans1);
 	original1.parentNode.appendChild(clone1);
+	$("#firstSavings"+f).find("#savingsForm"+ (f-1)).attr("id", "savingsForm"+f);
+	$("#savingsForm"+f).find("#inputSavingsName"+(f-1)).attr("id", "inputSavingsName"+f);
+	$("#savingsForm"+f).find("#inputSavingsAmount"+(f-1)).attr("id", "inputSavingsAmount"+f);
+	$("#savingsForm"+f).find("#consistent"+(f-1)).attr("id", "consistent"+f);
+	$("#savingsForm"+f).find("#consistent"+ f).attr("name", "consistent"+f);
+	$("#savingsForm"+f).find("#inconsistent"+(f-1)).attr("id", "inconsistent"+f);
+	$("#savingsForm"+f).find("#inconsistent"+f).attr("name", "consistent"+f);
+	$("#savingsForm"+f).find("#inputSavingsAIR"+(f-1)).attr("id", "inputSavingsAIR"+f);
+	$("#savingsForm"+f).find("#inputSavingsPmts"+(f-1)).attr("id", "inputSavingsPmts"+f);
+	$("#savingsForm"+f).find("#inputSavingsType"+(f-1)).attr("id", "inputSavingsType"+f);
+
+
 	var addButton1 = document.getElementById('addAnotherSavings');
 	clone1.parentNode.appendChild(addButton1);
-
+	var radioName="consistent"+f;
 	children1= clone1.children;
 	children1[0].reset();
+
+	$('input:radio[name='+radioName+']').change(
+	function(){
+		if($(this).is(':checked') && $(this).val()=='inconsistent'){
+			hideConsistent();
+		}
+	});
+
+	$('input:radio[name='+radioName+']').change(
+	function(){
+		if($(this).is(':checked') && $(this).val()=='consistent'){
+			showConsistent();
+		}
+	});
 }
 
 
@@ -110,14 +148,16 @@ else{
 var login=function(){
 
 }
+	$("#savingsForm"+f).find("#inputSavingsType"+(f-1)).attr("id", "inputSavingsType"+f);
 
 var hideConsistent=function(){
 var inconsistents =document.getElementsByClassName('inconsistentRadio');
 for(z=0;z<inconsistents.length;z++){
 	if(inconsistents[z].checked){
-		var consistents=document.getElementsByClassName('consistent');
-		for(y=0;y<consistents.length;y++){
-		consistents[y].style.display="none";
+		var consistents=inconsistents[z].id.slice(12);
+		var consistentArray=$("#savingsForm"+consistents).find(".consistent");
+		for(y=0;y<consistentArray.length;y++){
+		consistentArray[y].style.display="none";
 		}
 	}
 }
@@ -126,11 +166,12 @@ for(z=0;z<inconsistents.length;z++){
 
 var showConsistent=function(){
 var inconsistents =document.getElementsByClassName('consistentRadio');
-for(z=0;z<inconsistents.length;z++){
-	if(inconsistents[z].checked){
-		var consistents=document.getElementsByClassName('consistent');
-		for(y=0;y<consistents.length;y++){
-		consistents[y].style.display="block";
+for(x=0;x<inconsistents.length;x++){
+	if(inconsistents[x].checked){
+		var consistents=inconsistents[x].id.slice(10);
+		var consistentArray=$("#savingsForm"+consistents).find(".consistent");
+		for(u=0;u<consistentArray.length;u++){
+		consistentArray[u].style.display="block";
 		}
 	}
 }

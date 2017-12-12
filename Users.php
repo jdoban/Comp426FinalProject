@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         }
         //Find a value by username but without knowing password, useful for finding user_id value
       } else {
-        $username =  $_REQUEST['username'];
+        $username = $_REQUEST['username'];
         $Users = Users::findByUsername($username);
 
         if ($Users == null) {
@@ -100,12 +100,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
           print(json_encode(true));
           exit();
         }
-      }}
+
         // Normal lookup.
         // Generate JSON encoding as response
         header("Content-type: application/json");
         print($Users->getJSON());
         exit();
+      }
   }
 
   // ID or username not specified, then must be asking for index of all ids
@@ -145,9 +146,24 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
       }
     }
 
+    // Validate income
+    $new_income = false;
+    if (isset($_REQUEST['income'])) {
+      $new_income = intval($_REQUEST['income']);
+      if ($new_income == "" || $new_income < 0) {
+          header("HTTP/1.0 400 Bad Request");
+          print("Bad income");
+          exit();
+      }
+    }
+
     // Update via ORM
     if ($new_password) {
       $Users->updatePassword($new_password);
+    }
+
+    if($new_income){
+      $Users->updateIncome($new_income);
     }
 
     // Return JSON encoding of updated Users
@@ -187,8 +203,21 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
     $password = password_hash($plain_password, PASSWORD_DEFAULT);
 
+    if (!isset($_REQUEST['income'])) {
+      header("HTTP/1.0 400 Bad Request");
+      print("Missing income");
+      exit();
+    }
+
+    $income = intval($_REQUEST['income']);
+    if ($username == "") {
+      header("HTTP/1.0 400 Bad Request");
+      print("Bad income");
+      exit();
+    }
+
     // Create new Users via ORM
-    $new_Users = Users::create($username, $password);
+    $new_Users = Users::create($username, $password, $income);
 
     if(!isset($new_Users)){
       print("Username already taken");

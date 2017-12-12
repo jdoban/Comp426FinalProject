@@ -5,6 +5,9 @@ var l=0;
 var f=0;
 var a=0;
 var base_url = "https://wwwp.cs.unc.edu/Courses/comp426-f17/users/mtyndall/finalproject";
+var username;
+var password;
+var user_id;
 
 $("#addAnotherLoan").on('click', function(e){
 addAnotherLoan();
@@ -22,13 +25,19 @@ $("#addAnotherIncome").on('click', function(e){
 addAnotherIncome();
 });
 
-$("#registerSubmit").on('click', function(e){
+$("#registerForm").on('submit', function(e){
 register(e);
 });
 
-$("#loginSubmit").on('click', function(e){
-login();
+//Use submit instead of click for forms so we can serialize the data with jquery
+$("#login_form").on('submit', function(e){
+  login(e);
 });
+/*
+$("#loginSubmit").on('click', function(e){
+login(e);
+});
+*/
 
 $('input:radio[name="consistent0"]').change(
 	function(){
@@ -170,24 +179,55 @@ if(checkPass==false){
 	document.getElementById('registerForm').reset();
 }
 else{
-$.ajax(base_url + "/Users.php/",
-	       {type: "POST",
+	e.preventDefault();
+	document.getElementById('pass1').remove();
+
+	$.ajax({
+			url: base_url + "/Users.php/",
+	       type: "POST",
+		       data: $('#registerForm').serialize(),
+		       success: function(response) {
+             	console.log(response);
+              username = $('#username').val();
+              password = $('#pass').val();
+              user_id = response.id;
+              console.log(user_id);
+             },
+		error: function(xhr){console.log("nope");}
+
+});
+	document.getElementById('registerButton').style.display="none";
+	document.getElementById('loginButton').style.display="none";
+
+}
+}
+
+var login=function(e){
+  e.preventDefault();
+  var login_array = {username: $("#login_username").val(), password: $("#login_password").val()};
+  console.log(login_array);
+  console.log(JSON.stringify(login_array));
+  console.log($('#login_form').serialize());
+
+  //This works
+  $.ajax(base_url + "/Users.php/",
+	       {type: "GET",
 		       dataType: "json",
-		       data: JSON.stringify({
-		       	username: $("#username").val(),
-		       	password: $("#pass").val()
-		       }),
-		       success: function(user_ids, status, jqXHR) {
-             	console.log(JSON.stringify(user_ids));
-             $('#user_id_list').append(JSON.stringify(user_ids) + '\n');
+           data: $('#login_form').serialize(),
+		       success: function(response, status, jqXHR) {
+             console.log("valid id");
+             console.log(response);
+             username = response.username;
+             password = response.password;
+             user_id = response.id;
+             document.getElementById('registerButton').style.display="none";
+	document.getElementById('loginButton').style.display="none";
+
 		       },
-error: function(exception){alert('Exception:'+JSON.stringify(exception));}
-
-})
-
-}
-}
-var login=function(){
+           error: function(exception){
+             alert('Invalid username or password');
+           }
+     })
 
 }
 	$("#savingsForm"+f).find("#inputSavingsType"+(f-1)).attr("id", "inputSavingsType"+f);
@@ -222,6 +262,3 @@ for(x=0;x<inconsistents.length;x++){
 
 
 });
-
-
-

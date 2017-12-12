@@ -29,6 +29,10 @@ $("#registerForm").on('submit', function(e){
 register(e);
 });
 
+$("#submitDebts").on('click', function(e){
+  submit(e);
+});
+
 //Use submit instead of click for forms so we can serialize the data with jquery
 $("#login_form").on('submit', function(e){
   login(e);
@@ -256,6 +260,71 @@ for(x=0;x<inconsistents.length;x++){
 }
 }
 
+var submit = function(e){
+  //Debt/loan form
+  //Works, but need to replace user_id so it's not hardcoded in
+  for(var i = 0; i <= k; i++){
+    var formData = $('#debtForm'+i).serializeArray();
+    user_id = 1;
+    formData.push({name: "user_id", value: user_id});
+    console.log(formData);
 
+    $.ajax({
+             url: base_url + '/Debt.php/',
+             type: "POST", //send it through post method
+             data: formData,
+             success: function(response) {
+               console.log(response);
+               console.log('it worked');
+             },
+             error: function(xhr) {
+               console.log("nope");
+             }
+     });
+  }
+
+  //Reoccurring payments form
+  //Think it works
+  for(var i = 0; i <= l; i++){
+    var formData = $('#paymentForm'+i).serializeArray();
+    user_id = 1;
+    formData.push({name: "user_id", value: user_id});
+    console.log(formData);
+
+    $.ajax({
+             url: base_url + '/ReoccurringPayments.php/',
+             type: "POST", //send it through post method
+             data: formData,
+             success: function(response) {
+               console.log(response);
+               console.log('it worked');
+             },
+             error: function(xhr) {
+               console.log("nope");
+             }
+     });
+  }
+
+  //Savings form
+  for(var i = 0; i <= f; i++){
+    var formData = $('#savingsForm'+i).serializeArray();
+    user_id = 1;
+    formData.push({name: "user_id", value: user_id});
+    console.log(formData);
+
+    $.ajax({
+             url: base_url + '/Savings.php/',
+             type: "POST", //send it through post method
+             data: formData,
+             success: function(response) {
+               console.log(response);
+               console.log('it worked');
+             },
+             error: function(xhr) {
+               console.log("nope");
+             }
+     });
+  }
+}
 
 });

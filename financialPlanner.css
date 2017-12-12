@@ -30,3 +30,6 @@ margin-bottom: 20px;
 	margin-top: 5%;
 	font-size: 15px;
 }
+#incomeField{
+	display: none;
+}

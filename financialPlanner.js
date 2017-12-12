@@ -3,6 +3,7 @@ $(document).ready(function (){
 var k=0;
 var l=0;
 var f=0;
+var a=0;
 
 $("#addAnotherLoan").on('click', function(e){
 addAnotherLoan();
@@ -14,6 +15,10 @@ addAnotherPayment();
 
 $("#addAnotherSavings").on('click', function(e){
 addAnotherSavings();
+});
+
+$("#addAnotherIncome").on('click', function(e){
+addAnotherIncome();
 });
 
 $("#registerSubmit").on('click', function(e){
@@ -128,6 +133,29 @@ var addAnotherSavings =function(){
 			showConsistent();
 		}
 	});
+}
+
+var addAnotherIncome =function(){
+	var original1=document.getElementById('firstIncome' + a);
+	var clone1=original1.cloneNode(true);
+	clone1.id= "firstIncome" + ++a; ++b;
+	var loan1= document.getElementById('firstIncome');
+	var loans1=loan1.cloneNode(true);
+	var b =a+1;
+	loans1.innerHTML="Income "+ b+".";
+	original1.parentNode.appendChild(loans1);
+	original1.parentNode.appendChild(clone1);
+	$("#firstIncome"+a).find("#incomeForm"+ (a-1)).attr("id", "incomeForm"+a);
+	$("#incomeForm"+a).find("#inputIncomeName"+(a-1)).attr("id", "inputIncomeName"+a);
+	$("#incomeForm"+a).find("#inputIncomeAmount"+(a-1)).attr("id", "inputIncomeAmount"+a);
+	$("#incomeForm"+a).find("#inputIncomePmts"+(a-1)).attr("id", "inputIncomePmts"+a);
+
+
+	var addButton1 = document.getElementById('addAnotherIncome');
+	clone1.parentNode.appendChild(addButton1);
+
+	children1= clone1.children;
+	children1[0].reset();
 }
 
 

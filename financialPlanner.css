@@ -1,4 +1,4 @@
-#first-debt, #firstRecurring, #firstSavings{
+#first-debt, #firstRecurring, #firstSavings, #firstIncome{
 	float: left;
 	font-weight: bold;
 }
@@ -17,7 +17,7 @@
 .debt{
 margin-bottom: 20px;
 }
-#addAnotherLoan, #addAnotherPayment, #addAnotherSavings{
+#addAnotherLoan, #addAnotherPayment, #addAnotherSavings, #addAnotherIncome{
 	background-color: #e8ecf2;
 }
 #loginButton{

@@ -25,7 +25,7 @@ Savings
   id: INT, primary key
   user_id: INT, foreign key to user table
   name: VARCHAR(25)
-  principal: INT
-  annual_interest_rate: DECIMAL(5,2), interest rate up to 2 decimal values
-  payments_per_year: INT
-  payment_type: Boolean (tinyint(1))
+  principal: INT 
+  annual_interest_rate: DECIMAL(5,2), interest rate up to 2 decimal values (optional)
+  payments_per_year: INT (optional)
+  payment_type: Boolean (tinyint(1)) (optional)

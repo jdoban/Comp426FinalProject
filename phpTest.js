@@ -11,35 +11,21 @@ $(document).ready(function(){
 		       },
            error: function(exception){alert('Exception:'+JSON.stringify(exception));}
      })
-     /*
-     $('#test_form').on('submit', function(e){
-       e.preventDefault();
-       $.ajax(base_url + "/Debt.php/",
-     	       {type: "POST",
-     		       dataType: "json",
-               data: $(this).serialize(),
-     		       success: function(user_ids, status, jqXHR) {
-                  console.log("successful post");
-     		       },
-                error: function(exception){
 
-                  alert('Exception:'+JSON.stringify(exception)+'it didnt work');}
-          })
-     })
-     */
      $('#id_test').on('submit', function(e){
        e.preventDefault();
-       console.log($(this).serialize());
-       $.ajax(base_url + "/Users.php/",
-     	       {type: "POST",
-     		       dataType: "json",
-               data: $(this).serialize(),
-     		       success: function(user_ids, status, jqXHR) {
-                  console.log("successful post");
-     		       },
-                error: function(exception){
-                alert('Exception:'+JSON.stringify(exception));}
-          })
+                   $.ajax({
+                            url: base_url + '/Users.php/',
+                            type: "GET", //send it through get method
+                            data: $('#id_test').serialize(),
+                            success: function(response) {
+                              console.log(response);
+                              console.log('it worked');
+                            },
+                            error: function(xhr) {
+                              console.log("nope");
+                            }
+            });
      })
 
 

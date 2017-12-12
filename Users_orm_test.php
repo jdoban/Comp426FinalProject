@@ -22,7 +22,7 @@ function renderUsers($t) {
 
 <?php
 
-$t = Users::findByID(1);
+$t = Users::findByUsername(matt5);
 ?>
 <p>
 $t = Users::findByID(1);
@@ -32,10 +32,7 @@ $t = Users::findByID(1);
 
 <?php
 
-$t = Users::create(bob13, test);
+$test = $t->getPassword();
 ?>
-$t = Users::create(bob, test);
-
-<blockquote>
-	<?php renderUsers($t); ?>
-</blockquote>
+<p>
+$t = $t::getPassword();

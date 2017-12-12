@@ -4,7 +4,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 date_default_timezone_set('America/New_York');
 
-
 $path_components = explode('/', $_SERVER['PATH_INFO']);
 
 // Note that since extra path info starts with '/'
@@ -15,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
   // Following matches instance URL in form
   // /Users.php/<id> or /Users.php/<username>
+  // Use if you want info and know the user_id
 
   if ((count($path_components) >= 2) &&
       ($path_components[1] != "") && is_numeric($path_components[1])) {
@@ -40,16 +40,50 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
       exit();
     }
 
-    // Normal lookup.
+    // Normal lookup for username
     // Generate JSON encoding as response
     header("Content-type: application/json");
     print($Users->getJSON());
     exit();
 
-  } else if ((count($path_components) >= 2) &&
-      ($path_components[1] != "")) {
-        $username = trim($path_components[1]);
+  } else if ((count($path_components) >= 1)) {
 
+        //use for logins, else find id for username
+        //must pass in username and password as data in ajax call
+        if(isset($_REQUEST['password'])){
+          $username = $_REQUEST['username'];
+          $password = $_REQUEST['password'];
+
+          $Users = Users::findByUsername($username);
+          if(!isset($Users)){
+            header("HTTP/1.0 404 Not Found");
+            print("User: " . $username . " not found.");
+            exit();
+          }
+
+          if(password_verify($password , $Users->getPassword())){
+            // Normal lookup.
+            // Generate JSON encoding as response
+            header("Content-type: application/json");
+            print($Users->getJSON());
+            exit();
+          } else {
+            header("HTTP/1.0 400 Bad Request");
+            print("Bad password" . password_hash($password, PASSWORD_DEFAULT) . "\n" . $Users->getPassword());
+            exit();
+          }
+
+          // Check to see if deleting
+          if (isset($_REQUEST['delete'])) {
+            $Users->delete();
+            header("Content-type: application/json");
+            print(json_encode(true));
+            exit();
+
+        }
+        //Find a value by username but without knowing password, useful for finding user_id value
+      } else {
+        $username =  $_REQUEST['username'];
         $Users = Users::findByUsername($username);
 
         if ($Users == null) {
@@ -66,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
           print(json_encode(true));
           exit();
         }
-
+      }}
         // Normal lookup.
         // Generate JSON encoding as response
         header("Content-type: application/json");
@@ -74,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         exit();
   }
 
-  // ID not specified, then must be asking for index
+  // ID or username not specified, then must be asking for index of all ids
   header("Content-type: application/json");
   print(json_encode(Users::getAllIDs()));
   exit();
@@ -144,20 +178,20 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
       exit();
     }
 
-    $password = trim($_REQUEST['password']);
-    if ($password == "") {
+    $plain_password = trim($_REQUEST['password']);
+    if ($plain_password == "") {
       header("HTTP/1.0 400 Bad Request");
       print("Bad password" . $password . 'test');
       exit();
     }
 
+    $password = password_hash($plain_password, PASSWORD_DEFAULT);
+
     // Create new Users via ORM
     $new_Users = Users::create($username, $password);
 
-    // Report if failed
-    if ($new_Users == null) {
-      header("HTTP/1.0 500 Server Error");
-      print("Server couldn't create new Users.");
+    if(!isset($new_Users)){
+      print("Username already taken");
       exit();
     }
 

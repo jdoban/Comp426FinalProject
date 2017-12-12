@@ -45,10 +45,24 @@ class Users
 		return null;
 	}
 
-  public static function findByUsername($id) {
+  public static function getAllIDs() {
+    $mysqli = Users::connect();
+
+    $result = $mysqli->query("select id from Users");
+    $id_array = array();
+
+    if ($result) {
+      while ($next_row = $result->fetch_array()) {
+	       $id_array[] = intval($next_row['id']);
+      }
+    }
+    return $id_array;
+  }
+
+  public static function findByUsername($username) {
 	  $mysqli = Users::connect();
 
-		$result = $mysqli->query("select * from Users where username = " . $username);
+		$result = $mysqli->query("select * from Users where username = " . "'". $username . "'");
 		if ($result) {
 			if ($result->num_rows == 0){
 				return null;
@@ -93,5 +107,13 @@ class Users
 		$result = $mysqli->query("update Users set password = " . $this->password . " where id = " . $this->id);
 		return $result;
 	}
+
+	public function getJSON() {
+
+    $json_obj = array('id' => $this->id,
+		      'username' => $this->username,
+		      'password' => $this->password);
+    return json_encode($json_obj);
+  }
 
 }

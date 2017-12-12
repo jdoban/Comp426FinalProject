@@ -2,6 +2,7 @@ Users
   id : INT, primary key, not null, auto_increment
   username: CHAR(25) not null, unique
   password: CHAR(25) not null
+  income: INT
 
 Debt
   id: INT, primary key
@@ -19,3 +20,4 @@ Reoccuring_Payments
   name: VARCHAR(25)
   payment_amount: DECIMAL(7,2)
   payments_pey_year: INT
+

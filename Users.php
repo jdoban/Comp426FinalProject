@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     */
 
     // Validate income
-    $new_income = intval($_REQUEST['income']);
+    $new_income = false;
 
     if (isset($_REQUEST['income'])) {
       $new_income = intval($_REQUEST['income']);
@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     // Update via ORM
     if($new_income){
       $Users->setIncome($new_income);
-    } 
+    }
 
     // Return JSON encoding of updated Users
     header("Content-type: application/json");

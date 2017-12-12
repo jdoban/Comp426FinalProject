@@ -219,16 +219,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     $password = password_hash($plain_password, PASSWORD_DEFAULT);
 
     if (!isset($_REQUEST['income'])) {
-      header("HTTP/1.0 400 Bad Request");
-      print("Missing income");
-      exit();
-    }
-
-    $income = intval($_REQUEST['income']);
-    if ($username == "") {
-      header("HTTP/1.0 400 Bad Request");
-      print("Bad income");
-      exit();
+      $income = NULL;
+    } else {
+      $income = intval($_REQUEST['income']);
+      if ($income == "") {
+        header("HTTP/1.0 400 Bad Request");
+        print("Bad income");
+        exit();
+      }
     }
 
     // Create new Users via ORM

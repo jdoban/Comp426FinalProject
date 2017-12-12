@@ -11,7 +11,7 @@ Debt
   principal: INT
   term: INT
   annual_interest_rate: DECIMAL(5,2), interest rate up to 2 decimal values
-  payments_pey_year: INT
+  payments_per_year: INT
   payment_type: Boolean
 
 Reoccuring_Payments
@@ -19,5 +19,13 @@ Reoccuring_Payments
   user_id: INT, foreign key to user table
   name: VARCHAR(25)
   payment_amount: DECIMAL(7,2)
-  payments_pey_year: INT
+  payments_per_year: INT
 
+Savings
+  id: INT, primary key
+  user_id: INT, foreign key to user table
+  name: VARCHAR(25)
+  principal: INT
+  annual_interest_rate: DECIMAL(5,2), interest rate up to 2 decimal values
+  payments_pey_year: INT
+  payment_type: Boolean

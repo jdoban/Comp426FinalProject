@@ -1,249 +1,569 @@
 <!DOCTYPE html>
 <html lang="en">
- 
- <head>
- 	
- 	<title>Recommended Budget</title>
-		
+
+<head>
+
+	<title>Recommended Budget</title>
+
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="RecommendedBudget.css">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="RecommendedBudget.js"></script>
 
 	<!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
       // Load the Visualization API and the corechart package.
       google.charts.load('current', {'packages':['corechart']});
-
       // Set a callback to run when the Google Visualization API is loaded.
       google.charts.setOnLoadCallback(drawChart);
-
       // Callback that creates and populates a data table,
       // instantiates the pie chart, passes in the data and
       // draws it.
       function drawChart() {
-
         // Create the data table.
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Attribute');
         data.addColumn('number', 'Percentage');
         data.addRows([
-          ['Savings', 1],
-          ['Transportation', 1],
-          ['Food', 1],
-          ['Utilities', 1],
-          ['Home', 1],
-          ['Recreation', 1],
-          ['Personal', 1],
-          ['Insurance', 1],
-          ['Health', 1]
-        ]);
-
+        	['Savings', 1],
+        	['Transportation', 1],
+        	['Food', 1],
+        	['Utilities', 1],
+        	['Home', 1],
+        	['Recreation', 1],
+        	['Personal', 1],
+        	['Insurance', 1],
+        	['Health', 1]
+        	]);
         // Set chart options
         var options = {'width':1000,
-                       'height':400};
-
+        'height':400};
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
-      }
-    </script>
+    }
+</script>
 
- </head>
+<script>
+  window.onload=function(){
+    document.getElementById('PlannedButton').focus();
+  }
+</script>
 
- <body>
- 	
- 	<div class="container">
- 		
- 		<div class="row">
- 			
- 			<div class="col-md-12 text-center">
- 				<h1>Recommended Budget</h1>
- 			</div>
+</head>
 
- 		</div>
- 		
- 		<hr>
- 		
- 		<div class="row">
+<body>
 
- 			<div id="chart_div" class='col-md-12 text-center' align="center"></div>
-
- 		</div>
-
- 		<hr>
+	<div class="container">
 
 		<div class="row">
 
- 			<div class="col-md-4 text-center">
- 				<h3>Planned</h3>
- 			</div>
- 			
- 			<div class="col-md-4 text-center">
- 				<h3>Spent</h3>
- 			</div>
+			<div class="col-md-12 text-center">
+				<h1>Recommended Budget</h1>
+			</div>
+
+		</div>
+
+		<hr>
+
+		<div class="row">
+
+			<div id="chart_div" class='col-md-12 text-center' align="center"></div>
+
+		</div>
+
+		<hr>
+
+		<div class="row">
+
+			<div class="col-md-4 text-center">
+				<a href="#/" onclick="PlannedFunction()" id="PlannedButton" class="PlannedButton">Planned</a>
+			</div>
+
+			<div class="col-md-4 text-center">
+				<a href="#/" onclick="SpentFunction()" class="SpentButton">Spent</a>
+			</div>
 			
 			<div class="col-md-4 text-center">
- 				<h3>Remaining</h3>
- 			</div>
- 			
- 		</div>
+				<a href="#/" onclick="RemainingFunction()" class="RemainingButton">Remaining</a>
+			</div>
 
- 		<hr>
+		</div>
 
- 		<div class="row">
+		<hr>
 
- 			<div class="col-md-8">
- 				<h3>Savings</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>$100.00</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>(10%)</h3>
- 			</div>
+		<div id="PlannedEvent">
 
- 		</div>
+			<div class="row">
 
- 		<div class="row">
+				<div class="col-md-8">
+					<h3>Savings</h3>
+				</div>
 
- 			<div class="col-md-8">
- 				<h3>Transportation</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>$100.00</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>(10%)</h3>
- 			</div>
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
 
- 		</div>
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
 
- 		<div class="row">
+			</div>
 
- 			<div class="col-md-8">
- 				<h3>Food</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>$100.00</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>(10%)</h3>
- 			</div>
+			<div class="row">
 
- 		</div>
+				<div class="col-md-8">
+					<h3>Transportation</h3>
+				</div>
 
- 		<div class="row">
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
 
- 			<div class="col-md-8">
- 				<h3>Utilities</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>$100.00</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>(10%)</h3>
- 			</div>
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
 
- 		</div>
+			</div>
 
- 		<div class="row">
+			<div class="row">
 
- 			<div class="col-md-8">
- 				<h3>Home</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>$100.00</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>(10%)</h3>
- 			</div>
+				<div class="col-md-8">
+					<h3>Food</h3>
+				</div>
 
- 		</div>
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
 
- 		<div class="row">
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
 
- 			<div class="col-md-8">
- 				<h3>Recreation</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>$100.00</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>(10%)</h3>
- 			</div>
+			</div>
 
- 		</div>
+			<div class="row">
 
- 		<div class="row">
+				<div class="col-md-8">
+					<h3>Utilities</h3>
+				</div>
 
- 			<div class="col-md-8">
- 				<h3>Personal</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>$100.00</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>(10%)</h3>
- 			</div>
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
 
- 		</div>
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
 
- 		<div class="row">
+			</div>
 
- 			<div class="col-md-8">
- 				<h3>Insurance</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>$100.00</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>(10%)</h3>
- 			</div>
+			<div class="row">
 
- 		</div>
+				<div class="col-md-8">
+					<h3>Home</h3>
+				</div>
 
- 		<div class="row">
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
 
- 			<div class="col-md-8">
- 				<h3>Health</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>$100.00</h3>
- 			</div>
- 			
- 			<div class="col-md-2">
- 				<h3>(10%)</h3>
- 			</div>
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
 
- 		</div>
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Recreation</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Personal</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Insurance</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Health</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+		</div>
+
+
+
+
+
+
+
+
+
+
+		<div id="SpentEvent" style="display:none;">
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Savings</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(99%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Transportation</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Food</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Utilities</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Home</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Recreation</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Personal</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Insurance</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Health</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+		</div>
+
+
+
+
+
+
+
+
+
+
+		<div id="RemainingEvent" style="display:none;">
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Savings</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(216%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Transportation</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Food</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Utilities</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Home</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Recreation</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Personal</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Insurance</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-8">
+					<h3>Health</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>$100.00</h3>
+				</div>
+
+				<div class="col-md-2">
+					<h3>(10%)</h3>
+				</div>
+
+			</div>
+
+		</div>
 
 	</div>
 
 
 
- </body>
+</body>
 
 </html>

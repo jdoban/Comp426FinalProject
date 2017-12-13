@@ -1,101 +1,89 @@
-$(document).ready(function (){
-
-var base_url = "https://wwwp.cs.unc.edu/Courses/comp426-f17/users/mtyndall/finalproject";
-
-function PlannedFunction() 
+$(document).ready(function ()
 {
-	var x = document.getElementById("PlannedEvent");
-	var y = document.getElementById("SpentEvent");
-	var z = document.getElementById("RemainingEvent");
-	if (x.style.display === "none") 
-	{
-		x.style.display = "block";
-		y.style.display = "none";
-		z.style.display = "none";
-	} 
-}
 
-function SpentFunction() 
-{
-	var x = document.getElementById("PlannedEvent");
-	var y = document.getElementById("SpentEvent");
-	var z = document.getElementById("RemainingEvent");
-	if (y.style.display === "none") 
-	{
-		x.style.display = "none";
-		y.style.display = "block";
-		z.style.display = "none";
-	} 
-}
+	var base_url = "https://wwwp.cs.unc.edu/Courses/comp426-f17/users/mtyndall/finalproject";
 
-function RemainingFunction() 
-{
-	var x = document.getElementById("PlannedEvent");
-	var y = document.getElementById("SpentEvent");
-	var z = document.getElementById("RemainingEvent");
-	if (z.style.display === "none") 
+	function PlannedFunction() 
 	{
-		x.style.display = "none";
-		y.style.display = "none";
-		z.style.display = "block";
-	} 
-}
+		var x = document.getElementById("PlannedEvent");
+		var y = document.getElementById("SpentEvent");
+		var z = document.getElementById("RemainingEvent");
+		if (x.style.display === "none") 
+		{
+			x.style.display = "block";
+			y.style.display = "none";
+			z.style.display = "none";
+		} 
+	}
 
-var getUser=function(user){
-	var name= user+"=";
-	var decodedCookie=decodeURIComponent(document.cookie);
-	var ca = decodedCookie.split(';');
-	for(var i=0;i<ca.length;i++){
-		var c=ca[i];
-		while(c.charAt(0)==' '){
-			c=c.substring(1);
+	function SpentFunction() 
+	{
+		var x = document.getElementById("PlannedEvent");
+		var y = document.getElementById("SpentEvent");
+		var z = document.getElementById("RemainingEvent");
+		if (y.style.display === "none") 
+		{
+			x.style.display = "none";
+			y.style.display = "block";
+			z.style.display = "none";
+		} 
+	}
+
+	function RemainingFunction() 
+	{
+		var x = document.getElementById("PlannedEvent");
+		var y = document.getElementById("SpentEvent");
+		var z = document.getElementById("RemainingEvent");
+		if (z.style.display === "none") 
+		{
+			x.style.display = "none";
+			y.style.display = "none";
+			z.style.display = "block";
+		} 
+	}
+
+	var getUser=function(user)
+	{
+		var name= user+"=";
+		var decodedCookie=decodeURIComponent(document.cookie);
+		var ca = decodedCookie.split(';');
+		for(var i=0;i<ca.length;i++)
+		{
+			var c=ca[i];
+			while(c.charAt(0)==' ')
+			{
+				c=c.substring(1);
+			}
+			if(c.indexOf(name)==0)
+			{
+				return c.substring(name.length, c.length);
+			}
+		} 
+		return "";
+	}
+	
+	var user_id=getUser("user");
+
+	var all_recurring_payments;
+
+	$.ajax(base_url + "/FindRPByID.php/" + user_id,
+	{
+		type: "GET",
+		dataType: "json",
+
+		success: function(response, status, jqXHR) 
+		{
+			console.log(JSON.stringify(response));
+			all_recurring_payments=response;
 		}
-		if(c.indexOf(name)==0){
-			return c.substring(name.length, c.length);
-		}
-	} 
-	return "";
+	}
+	)
+
+	function PHoN() 
+	{
+    	document.getElementById("PHoN").innerHTML = housing;
+	}
+
+
 }
-var user_id=getUser("user");
-var all_recurring_payments;
-var allDebt;
-var allSavings;
-
-$.ajax(base_url + "/FindRPByID.php/" + user_id,
-	       {type: "GET",
-		       dataType: "json",
-		       success: function(response, status, jqXHR) {
-             console.log(JSON.stringify(response));
-             all_recurring_payments=response;
-		       },
-		       error: function(jqXHR){
-		       	console.log(jqXHR);
-		       }
-           }
-       )
-$.ajax(base_url + "/FindDebtByID.php/" + user_id,
-	       {type: "GET",
-		       dataType: "json",
-		       success: function(response, status, jqXHR) {
-             console.log(JSON.stringify(response));
-             allDebt=response;
-		       },
-		       error: function(jqXHR){
-		       	console.log(jqXHR);
-		       }
-           }
-       )
-$.ajax(base_url + "/FindSavingsByID.php/" + user_id,
-	       {type: "GET",
-		       dataType: "json",
-		       success: function(response, status, jqXHR) {
-             console.log(JSON.stringify(response));
-             allSavings=response;
-		       },
-		       error: function(jqXHR){
-		       	console.log(jqXHR);
-		       }
-           }
-       )
-
-});
+);

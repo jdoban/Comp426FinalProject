@@ -1,5 +1,6 @@
 $(document).ready(function (){
 
+var base_url = "https://wwwp.cs.unc.edu/Courses/comp426-f17/users/mtyndall/finalproject";
 
 function PlannedFunction() 
 {
@@ -56,8 +57,9 @@ var getUser=function(user){
 	return "";
 }
 var user_id=getUser("user");
-
 var all_recurring_payments;
+var allDebt;
+var allSavings;
 
 $.ajax(base_url + "/FindRPByID.php/" + user_id,
 	       {type: "GET",
@@ -65,8 +67,35 @@ $.ajax(base_url + "/FindRPByID.php/" + user_id,
 		       success: function(response, status, jqXHR) {
              console.log(JSON.stringify(response));
              all_recurring_payments=response;
+		       },
+		       error: function(jqXHR){
+		       	console.log(jqXHR);
 		       }
            }
        )
-}
+$.ajax(base_url + "/FindDebtByID.php/" + user_id,
+	       {type: "GET",
+		       dataType: "json",
+		       success: function(response, status, jqXHR) {
+             console.log(JSON.stringify(response));
+             allDebt=response;
+		       },
+		       error: function(jqXHR){
+		       	console.log(jqXHR);
+		       }
+           }
+       )
+$.ajax(base_url + "/FindSavingsByID.php/" + user_id,
+	       {type: "GET",
+		       dataType: "json",
+		       success: function(response, status, jqXHR) {
+             console.log(JSON.stringify(response));
+             allSavings=response;
+		       },
+		       error: function(jqXHR){
+		       	console.log(jqXHR);
+		       }
+           }
+       )
+
 });

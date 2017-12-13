@@ -119,14 +119,14 @@ var addAnotherSavings =function(){
 	$("#firstSavings"+f).find("#savingsForm"+ (f-1)).attr("id", "savingsForm"+f);
 	$("#savingsForm"+f).find("#inputSavingsName"+(f-1)).attr("id", "inputSavingsName"+f);
 	$("#savingsForm"+f).find("#inputSavingsAmount"+(f-1)).attr("id", "inputSavingsAmount"+f);
-	$("#savingsForm"+f).find("#consistent"+(f-1)).attr("id", "consistent"+f);
+/*	$("#savingsForm"+f).find("#consistent"+(f-1)).attr("id", "consistent"+f);
 	$("#savingsForm"+f).find("#consistent"+ f).attr("name", "consistent"+f);
 	$("#savingsForm"+f).find("#inconsistent"+(f-1)).attr("id", "inconsistent"+f);
 	$("#savingsForm"+f).find("#inconsistent"+f).attr("name", "consistent"+f);
 	$("#savingsForm"+f).find("#inputSavingsAIR"+(f-1)).attr("id", "inputSavingsAIR"+f);
 	$("#savingsForm"+f).find("#inputSavingsPmts"+(f-1)).attr("id", "inputSavingsPmts"+f);
 	$("#savingsForm"+f).find("#inputSavingsType"+(f-1)).attr("id", "inputSavingsType"+f);
-
+*/
 
 	var addButton1 = document.getElementById('addAnotherSavings');
 	clone1.parentNode.appendChild(addButton1);

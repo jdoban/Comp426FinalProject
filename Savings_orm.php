@@ -42,6 +42,20 @@ class Savings
 		return null;
 	}
 
+	//Returns all reoccurring payments with matching user_id
+	public static function findSavingsByUserID($user_id) {
+	  $mysqli = Savings::connect();
+
+		$result = $mysqli->query("select principal from Savings where user_id = " . $user_id);
+		$principal = 0;
+		if($result){
+			while ($next_row = $result->fetch_array()) {
+					$principal = $principal + intval($next_row['principal']);
+      }
+		}
+		return $principal;
+	}
+
 	public static function findByID($id) {
 	  $mysqli = Savings::connect();
 

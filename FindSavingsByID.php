@@ -1,5 +1,5 @@
 <?php
-require_once('ReoccurringPayments_orm.php');
+require_once('Savings_orm.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 date_default_timezone_set('America/New_York');
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
   if ((count($path_components) >= 2) &&
       ($path_components[1] != "")) {
         header("Content-type: application/json");
-        print(ReoccurringPayments::findPaymentsByUserID(intval($path_components[1])));
+        print(Savings::findSavingsByUserID(intval($path_components[1])));
       }
 
 } else {

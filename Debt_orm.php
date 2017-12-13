@@ -44,6 +44,36 @@ class Debt
 		return null;
 	}
 
+	//Returns all reoccurring payments with matching user_id
+	public static function findDebtByUserID($user_id) {
+	  $mysqli = Debt::connect();
+
+		$result = $mysqli->query("select principal, payments_per_year, name, term, annual_interest_rate, payments_per_year
+														from Debt where user_id = " . $user_id);
+		$amount_array = array();
+		$key_array = array();
+		if($result){
+			while ($next_row = $result->fetch_array()) {
+				/*
+					foreach($key_array as $key => $value){
+						if(strcmp($key, trim($next_row['name'])) == 0){
+							$key_array[$key] = $value + ((intval($next_row['payment_amount']) * intval($next_row['payments_per_year']))/12);
+						}
+					}
+				*/
+					$pv = intval($next_row['principal']);
+					$apr = floatval($next_row['annual_interest_rate']);
+					$r = $apr / intval($next_row['payments_per_year']);
+					$n = intval($next_row['payments_per_year']) * intval($next_row['term']);
+
+					$amount_array[] = ($pv*$r) / (1 - math.pow((1+$r), (-1 * $n)) ) ;
+					$key_array[] = trim($next_row['name']);
+
+      }
+		}
+		return json_encode(array_combine ($key_array , $amount_array));
+	}
+
 	public static function findByID($id) {
 	  $mysqli = Debt::connect();
 

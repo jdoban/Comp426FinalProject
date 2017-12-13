@@ -59,14 +59,30 @@ class ReoccurringPayments
 
 		$result = $mysqli->query("select payment_amount, payments_per_year, name from ReoccurringPayments where user_id = " . $user_id);
 		$amount_array = array();
-		$key_array = array();
+		$key_array = array(
+			"Transportation" => 0,
+			"Food" => 0,
+			"Utilities" => 0,
+			"Housing" => 0,
+			"Recreation" => 0,
+			"Personal" => 0,
+			"Insurance" => 0,
+			"Health" => 0
+		);
 		if($result){
 			while ($next_row = $result->fetch_array()) {
+					foreach($key_array as $key => $value){
+						if(strcmp($key, trim($next_row['name'])) == 0){
+							$key_array[$key] = $value + ((intval($next_row['payment_amount']) * intval($next_row['payments_per_year']))/12);
+						}
+					}
+					/*
 					$amount_array[] = (intval($next_row['payment_amount']) * intval($next_row['payments_per_year']))/12;
 					$key_array[] = trim($next_row['name']);
+					*/
       }
 		}
-		return json_encode(array_combine($key_array, $amount_array));
+		return json_encode($key_array);
 	}
 
 	public static function getAllIDs() {

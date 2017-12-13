@@ -351,6 +351,7 @@ var submit = function(e){
                       success: function(response) {
                         console.log(response);
                         console.log('it worked');
+                        setCookie(user_id);
                         location.assign("RecommendedBudget.html");
                       },
                       error: function(xhr) {
@@ -366,6 +367,9 @@ var submit = function(e){
    });
 
 
+}
+var setCookie=function(user_id){
+	document.cookie="user="+user_id+"; path=/";
 }
 
 });

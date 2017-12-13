@@ -1,3 +1,6 @@
+$(document).ready(function (){
+
+
 function PlannedFunction() 
 {
 	var x = document.getElementById("PlannedEvent");
@@ -37,17 +40,21 @@ function RemainingFunction()
 	} 
 }
 
- /* $.ajax({
-             url: base_url + '/ReoccurringPayments.php/',
-             type: "GET", //send it through post method
-             data: formData,
-             success: function(response) {
-               console.log(response);
-               console.log('it worked');
-             },
-             error: function(xhr) {
-               console.log("nope");
-             }
-     }); 
-*/
-
+var getUser=function(user){
+	var name= user+"=";
+	var decodedCookie=decodeURIComponent(document.cookie);
+	var ca = decodedCookie.split(';');
+	for(var i=0;i<ca.length;i++){
+		var c=ca[i];
+		while(c.charAt(0)==' '){
+			c=c.substring(1);
+		}
+		if(c.indexOf(name)==0){
+			return c.substring(name.length, c.length);
+		}
+	} 
+	return "";
+}
+var user_id=getUser("user");
+alert(user_id);
+});

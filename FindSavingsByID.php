@@ -16,11 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
       ($path_components[1] != "")) {
         header("Content-type: application/json");
         print(Savings::findSavingsByUserID(intval($path_components[1])));
+        exit();
       }
 
 } else {
   header("HTTP/1.0 400 Bad Request");
   print("Did not understand URL");
+  exit();
 }
 
 

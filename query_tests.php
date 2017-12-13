@@ -23,4 +23,3 @@ while(($x =  mysql_fetch_assoc($result))) {
 }
 
 echo(json_encode($array));
-?>

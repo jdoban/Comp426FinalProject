@@ -15,12 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
   if ((count($path_components) >= 2) &&
       ($path_components[1] != "")) {
         header("Content-type: application/json");
-        print(ReoccurringPayments::findPaymentsByUserID(intval($path_components[1])));
+        print(json_encode(ReoccurringPayments::findPaymentsByUserID(intval($path_components[1]))));
+        exit();
       }
 
 } else {
   header("HTTP/1.0 400 Bad Request");
   print("Did not understand URL");
+  exit();
 }
 
 

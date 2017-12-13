@@ -67,7 +67,8 @@ class ReoccurringPayments
 			"Recreation" => 0,
 			"Personal" => 0,
 			"Insurance" => 0,
-			"Health" => 0
+			"Health" => 0,
+			"Other" => 0
 		);
 		if($result){
 			while ($next_row = $result->fetch_array()) {
@@ -82,7 +83,7 @@ class ReoccurringPayments
 					*/
       }
 		}
-		return json_encode($key_array);
+		return $key_array;
 	}
 
 	public static function getAllIDs() {

@@ -146,8 +146,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
       exit();
     }
 
-
-    $username = trim($_REQUEST['username']);
+    /*
+    //$username = trim($_REQUEST['username']);
     // Validate password
     $new_password = false;
     if (isset($_REQUEST['password'])) {
@@ -158,25 +158,24 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         	exit();
       }
     }
+    */
 
     // Validate income
     $new_income = false;
+
     if (isset($_REQUEST['income'])) {
       $new_income = intval($_REQUEST['income']);
-      if ($new_income == "" || $new_income < 0) {
+      if ($new_income < 0) {
           header("HTTP/1.0 400 Bad Request");
           print("Bad income");
           exit();
       }
     }
 
-    // Update via ORM
-    if ($new_password) {
-      $Users->updatePassword($new_password);
-    }
 
+    // Update via ORM
     if($new_income){
-      $Users->updateIncome($new_income);
+      $Users->setIncome($new_income);
     }
 
     // Return JSON encoding of updated Users

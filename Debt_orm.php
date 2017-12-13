@@ -66,12 +66,12 @@ class Debt
 					$r = $apr / intval($next_row['payments_per_year']);
 					$n = intval($next_row['payments_per_year']) * intval($next_row['term']);
 
-					$amount_array[] = ($pv*$r) / (1 - math.pow((1+$r), (-1 * $n)) ) ;
+					$amount_array[] = ($pv*$r) / (1 - pow((1+$r), (-1 * $n)) ) ;
 					$key_array[] = trim($next_row['name']);
 
       }
 		}
-		return json_encode(array_combine ($key_array , $amount_array));
+		return array_combine ($key_array , $amount_array);
 	}
 
 	public static function findByID($id) {

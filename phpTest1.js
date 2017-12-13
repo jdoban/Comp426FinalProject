@@ -14,16 +14,20 @@ $(document).ready(function(){
 
      $('#id_test').on('submit', function(e){
        e.preventDefault();
+
+       console.log($(this).serialize());
                    $.ajax({
-                            url: base_url + '/Users.php/',
+                            url: base_url + '/Users.php/' + 62,
                             type: "POST", //send it through get method
-                            data: $('#id_test').serialize(),
+                            dataType: "json",
+                            data: $(this).serialize(),
                             success: function(response) {
                               console.log(response);
                               console.log('it worked');
                             },
                             error: function(xhr) {
                               console.log("nope");
+                              console.log(xhr);
                             }
             });
      })

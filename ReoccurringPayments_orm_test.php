@@ -10,6 +10,7 @@ function renderReoccurringPayments($t) {
     <li>id = <?php print($t->getID())?></li>
     <li>user_id = <?php print($t->getUserID())?></li>
     <li>name = <?php print($t->GetName())?></li>
+    <li>payments_per_year = <?php print($t->GetPaymentsPerYear())?></li>
 </ul>
 <?php
       }
@@ -32,10 +33,6 @@ $t = ReoccurringPayments::findByID(1);
 
 <?php
 
-$t = ReoccurringPayments::create(1, bob2, 1, 1);
+$t = ReoccurringPayments::findPaymentsByUserID(87);
+echo($t);
 ?>
-$t = ReoccurringPayments::create(bob, test);
-
-<blockquote>
-	<?php renderReoccurringPayments($t); ?>
-</blockquote>

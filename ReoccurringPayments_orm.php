@@ -53,6 +53,22 @@ class ReoccurringPayments
 		return null;
 	}
 
+	//Returns all reoccurring payments with matching user_id
+	public static function findPaymentsByUserID($user_id) {
+	  $mysqli = ReoccurringPayments::connect();
+
+		$result = $mysqli->query("select payment_amount, payments_per_year, name from ReoccurringPayments where user_id = " . $user_id);
+		$amount_array = array();
+		$key_array = array();
+		if($result){
+			while ($next_row = $result->fetch_array()) {
+					$amount_array[] = (intval($next_row['payment_amount']) * intval($next_row['payments_per_year']))/12;
+					$key_array[] = trim($next_row['name']);
+      }
+		}
+		return json_encode(array_combine($key_array, $amount_array));
+	}
+
 	public static function getAllIDs() {
     $mysqli = ReoccurringPayments::connect();
 

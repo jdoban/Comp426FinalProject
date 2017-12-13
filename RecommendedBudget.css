@@ -38,6 +38,16 @@
 	top:1px;
 }
 
+.PlannedButton, .SpentButton, .RemainingButton
+{
+	margin-bottom: 5%;
+}
+
+#PlannedEvent, #SpentEvent, #RemainingEvent
+{
+	margin-bottom: 5%;
+}
+
 .SpentButton {
 	-moz-box-shadow: 0px 0px 0px 2px #9fb4f2;
 	-webkit-box-shadow: 0px 0px 0px 2px #9fb4f2;

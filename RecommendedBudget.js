@@ -56,5 +56,5 @@ var getUser=function(user){
 	return "";
 }
 var user_id=getUser("user");
-alert(user_id);
+
 });

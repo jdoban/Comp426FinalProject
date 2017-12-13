@@ -57,4 +57,16 @@ var getUser=function(user){
 }
 var user_id=getUser("user");
 
+var all_recurring_payments;
+
+$.ajax(base_url + "/FindRPByID.php/" + user_id,
+	       {type: "GET",
+		       dataType: "json",
+		       success: function(response, status, jqXHR) {
+             console.log(JSON.stringify(response));
+             all_recurring_payments=response;
+		       }
+           }
+       )
+}
 });

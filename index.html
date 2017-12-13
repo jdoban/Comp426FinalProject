@@ -21,6 +21,7 @@
 			<h1> Financial Planner </h1>
 			<a href="#" data-toggle="modal" data-target="#register-modal" id="registerButton">Register</a>
 			<a href="#" data-toggle="modal" data-target="#login-modal" id="loginButton">Login</a>
+			<p id="welcome"> </p>
 
 		</div>
 	</div>
@@ -167,7 +168,7 @@
 			<div class="form-group row one-line">
 			<label for="inputSavingsName" class="control-label col-xs-3 col-sm-3 col-md-3">Name</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<input type="text" class="form-control" id="inputSavingsName0">
+			<input type="text" class="form-control" id="inputSavingsName0" name="name">
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
 				<p> E.g. "Bitcoin, Life Savings, etc."</p>
@@ -177,7 +178,7 @@
 			<div class="form-group row">
 			<label for="inputSavingsAmount" class="control-label col-xs-3 col-sm-3 col-md-3">Amount</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<input type="text" class="form-control" id="inputSavingsAmount0">
+			<input type="text" class="form-control" id="inputSavingsAmount0" name="principal">
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
 				<p> Enter the principal amount.</p>
@@ -203,7 +204,7 @@
 			<div class="form-group row consistent">
 			<label for="inputSavingsAIR"class="control-label col-xs-3 col-sm-3 col-md-3">Annual Interest Rate</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<input type="text" class="form-control" id="inputSavingsAIR">
+			<input type="text" class="form-control" id="inputSavingsAIR" name="annual_interest_rate">
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
 				<p> Enter the Annual Interest Rate for this asset.</p>
@@ -213,7 +214,7 @@
 			<div class="form-group row consistent">
 			<label for="inputSavingsPmts" class="control-label col-xs-3 col-sm-3 col-md-3">Payments per year</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<input type="text" class="form-control" id="inputSavingsPmts">
+			<input type="text" class="form-control" id="inputSavingsPmts" name="payments_per_year">
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
 				<p> For monthly payments, enter 12; annual payments, 1, etc.</p>
@@ -223,7 +224,7 @@
 			<div class="form-group row consistent">
 			<label for="inputSavingsType" class="control-label col-xs-3 col-sm-3 col-md-3">Payment Type</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<select class="form-control" id="inputSavingsType">
+			<select class="form-control" id="inputSavingsType" name="payment_type">
 			<option>0</option>
 			<option selected>1</option>
 			</select>

@@ -1,5 +1,4 @@
 $(document).ready(function (){
-
 var k=0;
 var l=0;
 var f=0;
@@ -8,6 +7,7 @@ var base_url = "https://wwwp.cs.unc.edu/Courses/comp426-f17/users/mtyndall/final
 var username;
 var password;
 var user_id;
+
 
 $("#addAnotherLoan").on('click', function(e){
 addAnotherLoan();
@@ -197,7 +197,7 @@ else{
               user_id = response.id;
               console.log(user_id);
               document.getElementById('registerButton').style.display="none";
-			document.getElementById('loginButton').style.display="none";
+			  document.getElementById('loginButton').style.display="none";
               document.getElementById('welcome').innerHTML="Welcome, "+ username;
 
 
@@ -205,7 +205,7 @@ else{
 		error: function(xhr){console.log("nope");}
 
 });
-	
+
 
 }
 }
@@ -272,7 +272,6 @@ var submit = function(e){
   //Works, but need to replace user_id so it's not hardcoded in
   for(var i = 0; i <= k; i++){
     var formData = $('#debtForm'+i).serializeArray();
-    user_id = 1;
     formData.push({name: "user_id", value: user_id});
     console.log(formData);
 
@@ -294,7 +293,6 @@ var submit = function(e){
   //Think it works
   for(var i = 0; i <= l; i++){
     var formData = $('#paymentForm'+i).serializeArray();
-    user_id = 1;
     formData.push({name: "user_id", value: user_id});
     console.log(formData);
 
@@ -316,7 +314,6 @@ var submit = function(e){
   for(var i = 0; i <= f; i++){
     var formData = $('#savingsForm'+i).serializeArray();
 
-    user_id = 1;
     formData.push({name: "user_id", value: user_id});
     console.log(formData);
 
@@ -334,12 +331,41 @@ var submit = function(e){
      });
   }
   var totalIncome=0;
-  for(var i=0;i<=a; i++){
-  	var income=$('#inputIncomeAmount'+i).val();
-  	var pmts=$('#inputIncomePmts'+i).val();
-  	var total=income*pmts;
-  	totalIncome+=total;
-  }
+  $.ajax({
+           url: base_url + '/Users.php/' + user_id, //replace with user_id
+           type: "GET", //send it through post method
+           success: function(response) {
+             totalIncome = parseInt(response.income);
+             for(var i=0;i<=a; i++){
+             	var income=$('#inputIncomeAmount'+i).val();
+             	var pmts=$('#inputIncomePmts'+i).val();
+             	var total=income*pmts;
+             	totalIncome+=total;
+             }
+             //If hard-coding data values in: format like this
+             $.ajax({
+                      url: base_url + '/Users.php/' + user_id, //must attach user_id in order to update
+                      type: "POST", //send it through get method
+                      dataType: "json",
+                      data: {income: totalIncome},
+                      success: function(response) {
+                        console.log(response);
+                        console.log('it worked');
+                        location.assign("RecommendedBudget.html");
+                      },
+                      error: function(xhr) {
+                        console.log("nope");
+                        console.log(xhr);
+                      }})
+             console.log(totalIncome);
+             console.log('it worked');
+           },
+           error: function(xhr) {
+             console.log("didn't work");
+           }
+   });
+
+
 }
 
 });

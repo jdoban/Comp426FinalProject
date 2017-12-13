@@ -33,3 +33,6 @@ margin-bottom: 20px;
 #incomeField{
 	display: none;
 }
+.panel-heading{
+	text-align: center;
+}

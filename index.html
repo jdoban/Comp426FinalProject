@@ -13,6 +13,7 @@
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 			<script src="financialPlanner.js"></script>
 
+
 		</head>
 <body id="financialPlannerBody">
 <div class="container">
@@ -30,11 +31,7 @@
 	<div class="row">
 
 	<div class="panel panel-default">
-	<div class="panel-heading"> Tools </div>
-	<div class="panel-footer">
-	<a href="blog1.html" class="btn btn-default btn-sm"> Recommended Budget </a>
-	<a href="blog2.html" class="btn btn-default btn-sm"> Financial Goals </a>
-	</div>
+	<div class="panel-heading"> Welcome to our financial planner! Fill out the following forms as accurately as possible, and we will give you a recommended budget. </div>
 	</div>
 
 
@@ -113,18 +110,28 @@
 		<a class="btn btn-default" id= "addAnotherLoan" role="button"> Add Another Loan</a>
 		</div>
 		<div class="col-md-6 col-sm-6 col-xs-12">
-			<h3> Reocurring Payments </h3>
+			<h3> Recurring Payments </h3>
 			<p> In this section, enter any recurring payments you make (Cell Phone, Car Insurance, Netflix, etc.</p>
 			<p id="firstRecurring"> <b> Payment 1. </b></p>
 		<div id="firstPayment0" class="debt col-md-12 col-sm-12 col-xs 12">
 			<form class="form-horizontal" id="paymentForm0">
 			<div class="form-group row one-line">
-			<label for="inputRecurringName" class="control-label col-xs-3 col-sm-3 col-md-3">Name</label>
+			<label for="inputRecurringName" class="control-label col-xs-3 col-sm-3 col-md-3">Category</label>
 			<div class="col-xs-4 col-sm-4 col-md-4 inputs">
-			<input type="text" class="form-control" id="inputRecurringName0" name="name">
+			<select class="form-control" id="inputRecurringName0" name="name">
+			<option> Transportation</option>
+			<option> Food</option>
+			<option> Utilities</option>
+			<option> Housing</option>
+			<option> Recreation</option>
+			<option> Personal</option>
+			<option> Insurance</option>
+			<option> Health</option>
+			<option> Other</option>
+			</select>
 			</div>
 			<div class="col-xs-5 col-sm-5 col-md-5">
-				<p> E.g. "Netflix"</p>
+				<p> Select the correct category.</p>
 			</div>
 			</div>
 

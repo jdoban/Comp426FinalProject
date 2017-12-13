@@ -37,4 +37,17 @@ function RemainingFunction()
 	} 
 }
 
+ /* $.ajax({
+             url: base_url + '/ReoccurringPayments.php/',
+             type: "GET", //send it through post method
+             data: formData,
+             success: function(response) {
+               console.log(response);
+               console.log('it worked');
+             },
+             error: function(xhr) {
+               console.log("nope");
+             }
+     }); 
+*/
 
